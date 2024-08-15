@@ -1,3 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .font-open-sans {
+    font-family: "Open Sans", sans-serif;
+  }
+
+  .alart-error-btn {
+    @apply hover:bg-red-200 focus:ring-red-400;
+  }
+  .alart-error-bg {
+    @apply text-red-800 bg-red-100;
+  }
+  .alart-success-bg {
+    @apply text-green-800 bg-green-100;
+  }
+  .alart-success-btn {
+    @apply hover:bg-green-200 focus:ring-green-400;
+  }
+}
