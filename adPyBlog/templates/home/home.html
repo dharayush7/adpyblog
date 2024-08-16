@@ -1,8 +1,37 @@
 {% extends "layout.html" %} {% block title %}Home{% endblock %}
 <!-- nav -->
 {% block home%}bg-slate-900{% endblock %}
+<!-- style -->
+{% block style %}
+<link
+  href="https://themewagon.github.io/pavo/css/styles.css"
+  rel="stylesheet"
+/>
+{% endblock %}
 <!-- main -->
 {% block main %}
-<p class="text-2xl">Hello</p>
+<header id="header" class="py-10 text-center header">
+  <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
+    <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
+      <h1 class="mb-5 h1-large">ADPyBlogs</h1>
+      <p class="mb-8 text-center p-large">
+        Chances are you've heard about blogging. You may have heard a story
+        about a blogger uncovering information about a politician or
+        controversial subject. Maybe you've even read a book or seen a movie
+        based on a blog. What exactly is a blog, anyway?
+      </p>
+      <a class="btn-solid-lg" href="#your-link">Start Blogging</a>
+      <a class="btn-solid-lg secondary" href="/blog">Read Blog</a>
+    </div>
+    <div class="">
+      <img
+        class="inline w-10/12"
+        src="https://themewagon.github.io/pavo/images/header-smartphone.png"
+        alt="alternative"
+      />
+    </div>
+  </div>
+  <!-- end of container -->
+</header>
 
 {% endblock %}

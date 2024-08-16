@@ -1,6 +1,8 @@
+from turtle import title
 from django.shortcuts import render, HttpResponse
-from django.contrib import messages
+from django.contrib import messages # type: ignore
 from home.models import Contact
+from blog.models import Post
 
 # Create your views here.
 
@@ -22,9 +24,21 @@ def contact(request):
         else:
             messages.error(request, "Please fill the form correctly")
        
-     
     return render(request, 'home/contact.html')
 
 
 def test(request):
     return render(request, "home/contactSubmit.html")
+
+def search(request):
+    q = request.GET.get("q")
+    if q == None:
+        return render(request, "error.html")
+    allposts = Post.objects.filter(title__icontains=q)
+
+    params = {
+        "posts": allposts,
+        "length": len(allposts),
+        "q":q
+    }
+    return render(request, "home/search.html", params)
