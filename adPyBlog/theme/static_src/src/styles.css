@@ -8,17 +8,4 @@
   .font-open-sans {
     font-family: "Open Sans", sans-serif;
   }
-
-  .alart-error-btn {
-    @apply hover:bg-red-200 focus:ring-red-400;
-  }
-  .alart-error-bg {
-    @apply text-red-800 bg-red-100;
-  }
-  .alart-success-bg {
-    @apply text-green-800 bg-green-100;
-  }
-  .alart-success-btn {
-    @apply hover:bg-green-200 focus:ring-green-400;
-  }
 }

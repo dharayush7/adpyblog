@@ -109,7 +109,7 @@
       >
         {% for message in messages %}
         <div
-          class="absolute z-20 flex items-center p-4 mb-4 mt-[5.5rem] rounded-lg alart-block {% if message.tags == "error" %} bg-red-100 text-red-800 {% endif %}{% if message.tags == "success" %} text-green-800 bg-green-100 {% endif %}"
+          class="absolute z-30 flex items-center p-4 mb-4 mt-[5.5rem] rounded-lg alart-block {% if message.tags == "error" %} bg-red-100 text-red-800 {% endif %}{% if message.tags == "success" %} text-green-800 bg-green-100 {% endif %}"
           role="alert"
         >
           <svg
@@ -155,5 +155,6 @@
     </main>
     {% load static %} <script src="{% static 'scripts/script.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    {% block js %}{% endblock %}
   </body>
 </html>

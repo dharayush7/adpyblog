@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect
-from django.contrib import messages # type: ignore
+from django.contrib import messages 
 from home.models import Contact
 from blog.models import Post
 from django.contrib.auth.models import User

@@ -20,15 +20,16 @@
     "
   ></div>
   <img
-    src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"
+    src="/media/{{post.image}}"
     class="absolute top-0 left-0 z-0 object-cover w-full h-full"
   />
   <div class="absolute bottom-0 left-0 z-20 px-8 py-3">
-    <a
+    <p
       href="#"
       class="inline-flex items-center justify-center px-4 py-1 mb-2 text-gray-200 uppercase bg-black"
-      >{{post.type}}</a
     >
+      {{post.type}}
+    </p>
     <h2 class="text-4xl font-normal leading-tight text-gray-100">
       {{post.title}}
     </h2>
@@ -37,15 +38,137 @@
         <p class="text-sm font-medium text-gray-200">
           By <span class="font-semibold">{{post.author}}</span>
         </p>
-        <p class="text-xs font-semibold text-gray-400">{{post.time_stamp}}</p>
+        <p class="text-xs font-open-sans font-semibold text-gray-400">
+          {{post.time_stamp}}
+        </p>
       </div>
     </div>
   </div>
 </div>
-<div
-  class="max-w-6xl px-4 mx-auto mt-12 text-lg leading-relaxed text-gray-700 lg:px-0"
->
-  <p class="pb-6 text-justify">{{post.content}}</p>
+<div class="max-w-6xl mx-auto mt-12 text-lg leading-relaxed text-gray-700 px-0">
+  <p class="pb-6 text-lg text-justify">{{post.content}}</p>
 </div>
+<!-- comment -->
 
+<section class="py-16 antialiased bg-white font-open-sans">
+  <div class="max-w-4xl px-4 mx-auto">
+    <div class="flex items-center justify-center mb-6">
+      <h2 class="font-semibold text-gray-900 text-3xl text-center">
+        Comment
+        <span class="text-2xl font-semibold text-gray-600"
+          >({{comments|length}})</span
+        >
+      </h2>
+    </div>
+    {% if user.is_authenticated %}
+    <form class="mb-6" action="/blog/comment/" method="post">
+      {% csrf_token %}
+      <input type="hidden" value="{{post.id}}" name="postId" />
+      <div
+        class="px-4 py-2 mb-4 bg-white border border-gray-200 rounded-lg rounded-t-lg"
+      >
+        <label for="comment" class="">@{{request.user}}</label>
+        <textarea
+          id="comment"
+          name="comment"
+          rows="6"
+          class="w-full px-0 text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
+          placeholder="Write a comment..."
+          required
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-600"
+      >
+        Post comment
+      </button>
+    </form>
+    {% else %}
+    <div
+      class="flex flex-col w-full justify-center items-center space-y-5 border rounded-md border-gray-400 p-4"
+    >
+      <p class="text-xl">Log in to post a comment</p>
+      <a
+        href="/login"
+        class="inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-600"
+      >
+        Log in
+      </a>
+    </div>
+    {% endif %}
+    <!-- comment 1 -->
+    {% load humanize %} {% for comment in comments %}
+    <article class="px-6 py-3 text-base bg-white rounded-lg">
+      <footer class="flex items-center justify-between mb-2">
+        <div class="flex items-center">
+          <p
+            class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900"
+          >
+            @{{comment.user.username}}
+          </p>
+          <p class="text-sm text-gray-600">
+            <time pubdate datetime="2022-02-08" title="February 8th, 2022"
+              >{{comment.time_stamp|naturaltime}}</time
+            >
+          </p>
+        </div>
+      </footer>
+      <p class="text-gray-500">{{comment.comment}}</p>
+      <div class="flex items-center mt-4 space-x-4">
+        <button
+          type="button"
+          class="flex items-center text-sm font-medium text-gray-500 hover:underline reply-btn"
+          id="{{comment.id}}n{{post.id}}"
+        >
+          <svg
+            class="mr-1.5 w-3.5 h-3.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 18"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
+            />
+          </svg>
+          Reply
+        </button>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="reply-container"></div>
+      {% else %}
+      <div class="no-reply-container"></div>
+      {% endif %}
+    </article>
+    {% for id, rpls in replies.items %} {% if id == comment.id %}
+    <!-- reply -->
+    {% for rpl in rpls %}
+    <article class="p-6 mb-3 ml-12 text-base bg-white rounded-lg">
+      <footer class="flex items-center justify-between mb-2">
+        <div class="flex items-center">
+          <p
+            class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900"
+          >
+            {{rpl.user.username}}
+          </p>
+          <p class="text-sm text-gray-600">
+            <time pubdate datetime="2022-02-12" title="February 12th, 2022"
+              >{{rpl.time_stamp|naturaltime}}</time
+            >
+          </p>
+        </div>
+      </footer>
+      <p class="text-gray-500">{{rpl.comment}}</p>
+    </article>
+    {% endfor %} {% endif %} {% endfor %} {% endfor %}
+  </div>
+</section>
+
+{% endblock %} {% load static %} {% block js %}
+<script src="{% static 'scripts/comment.js' %}"></script>
 {% endblock %}
