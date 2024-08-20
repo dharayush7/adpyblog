@@ -31,13 +31,16 @@
       <p
         class="block mb-3 text-base antialiased font-normal leading-relaxed text-gray-700"
       >
-        {{post.content|truncatechars:200}}
+        {{post.content|truncatechars:200|safe}}
       </p>
       <p
         class="block mb-8 text-sm antialiased font-normal leading-relaxed text-gray-700"
       >
-        by <span class="font-semibold">{{post.author}}</span> at
-        {{post.time_stamp}}
+        by
+        <span class="font-semibold"
+          >{{post.author.first_name}} {{post.author.last_name}}</span
+        >
+        at {{post.time_stamp}}
       </p>
       <a href="{{post.slug}}" class="inline-block"
         ><button

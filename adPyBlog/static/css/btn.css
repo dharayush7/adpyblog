@@ -1,0 +1,74 @@
+.btn-solid-lg {
+  display: inline-block;
+  padding: 1.625rem 2.75rem 1.625rem 2.75rem;
+  border: 1px solid #594cda;
+  border-radius: 32px;
+  background-color: #594cda;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 0;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-right: 0.25rem;
+  margin-bottom: 1.25rem;
+  margin-left: 0.25rem;
+}
+
+.btn-solid-lg:hover {
+  border: 1px solid #594cda;
+  background-color: transparent;
+  color: #594cda;
+  text-decoration: none;
+}
+
+.btn-solid-lg .fab {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 0;
+  vertical-align: top;
+}
+
+.btn-solid-lg .fab.fa-google-play {
+  font-size: 1rem;
+}
+
+.btn-solid-lg.secondary {
+  border: 1px solid #eb427e;
+  background-color: #eb427e;
+}
+
+.btn-solid-lg.secondary:hover {
+  border: 1px solid #eb427e;
+  background: transparent;
+  color: #eb427e;
+}
+
+.btn-solid-lg.secondary {
+  border: 1px solid #eb427e;
+  background-color: #eb427e;
+}
+
+.btn-solid-lg.secondary:hover {
+  border: 1px solid #eb427e;
+  background: transparent;
+  color: #eb427e;
+}
+.p-large {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.h1-large {
+  font-size: 2.875rem;
+  line-height: 3.5rem;
+}
+.header {
+  background: linear-gradient(rgba(197, 234, 249, 1), rgba(255, 255, 255, 1));
+}
+
+@media (min-width: 1280px) {
+  .h1-large {
+    font-size: 3.125rem;
+    line-height: 3.75rem;
+  }
+}

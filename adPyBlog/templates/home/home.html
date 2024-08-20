@@ -2,15 +2,12 @@
 <!-- nav -->
 {% block home%}bg-slate-900{% endblock %}
 <!-- style -->
-{% block style %}
-<link
-  href="https://themewagon.github.io/pavo/css/styles.css"
-  rel="stylesheet"
-/>
+{% block style %} {% load static %}
+<link href="{% static 'css/btn.css' %}" rel="stylesheet" />
 {% endblock %}
 <!-- main -->
 {% block main %}
-<header id="header" class="py-10 text-center header">
+<header id="header" class="py-10 text-center header font-open-sans">
   <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
     <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
       <h1 class="mb-5 h1-large">ADPyBlogs</h1>
@@ -20,7 +17,7 @@
         controversial subject. Maybe you've even read a book or seen a movie
         based on a blog. What exactly is a blog, anyway?
       </p>
-      <a class="btn-solid-lg" href="#your-link">Start Blogging</a>
+      <a class="btn-solid-lg" href="/blog/add/">Start Blogging</a>
       <a class="btn-solid-lg secondary" href="/blog">Read Blog</a>
     </div>
     <div class="">

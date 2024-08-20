@@ -7,13 +7,13 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     type = models.CharField(max_length=50)
     content = models.TextField()
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=250)
     image = models.ImageField(upload_to="images")
     time_stamp = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self) -> str:
-        return self.title+" - "+self.author
+        return self.title
     
 
 class BlogComment(models.Model):

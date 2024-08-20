@@ -1,11 +1,13 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.http import HttpResponse
 from blog.models import Post,BlogComment
+from dotenv import load_dotenv
+import os
 
 # Create your views here.
-def index(request):
+def index(request): 
     allPosts = Post.objects.all().order_by("-time_stamp")
+    
     return render(request, "blog/blogHome.html", {"allPosts": allPosts})
 
 def post(request, slug):
@@ -59,3 +61,56 @@ def handleComment(request):
         return redirect(f"/blog/{post.slug}")
         
     return render(request, "error.html")
+
+def handleAddBlog(request):
+    if request.user.username == "":
+        return redirect('/login')
+    load_dotenv()
+    TINYMEC = os.environ.get("TINYMEC")
+    if request.method == "POST":
+        content = request.POST.get('content')
+        title = request.POST.get('title')
+        category = request.POST.get('category')
+        thumbnail = request.FILES['thumbnail']
+        fileName = thumbnail.name
+        user = request.user
+        
+        if user.username == "":
+            return render(request, 'error.html')
+        
+        if content == "<p>Write Content Here...</p>" or len(content) == 0:
+            messages.error(request, "Content should not be empty or Content must be edited")
+            return render(request, "blog/addBlog.html", {'value': content})
+        slarr = fileName.split(".")
+        exe = slarr[len(slarr) -1]
+        allowedExe = ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"]
+        if exe  not in allowedExe:
+            messages.error(request, "only jpg, jpeg and png are allowed")
+            return render(request, 'blog/addBlog.html', {"value": content})
+        spTitle = title.split(' ')
+        slug = ""
+        for slc in spTitle:
+            if len(slug) ==0:
+                slug = slc.lower()
+            else:
+                slug = slug + "-" + slc.lower()
+        post = Post.objects.filter(slug=slug)
+        if len(post) != 0:
+            index = len(post) + 1
+            slug = slug + "-" + str(index)
+          
+        blog = Post(title=title,type=category,content=content, author=user, slug=slug, image=thumbnail)
+    
+        blog.save()
+        return redirect(f"/blog/{slug}")
+    else:
+        content = "Write Content Here..."
+        return render(request, "blog/addBlog.html", {'value': content, 'api': TINYMEC})
+    
+    
+
+def test(request):
+    
+    return render(request, 'blog/test.html')
+    
+    

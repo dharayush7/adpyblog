@@ -29,8 +29,25 @@ def contact(request):
     return render(request, 'home/contact.html')
 
 
-def test(request):
-    return render(request, "home/login.html")
+def about(request):
+    user = {}
+    posts = Post.objects.all()
+    for post in posts:
+        if post.author in user:
+            user[post.author] = user[post.author] + 1
+        else:
+            user[post.author] = 1
+            
+    user = dict(sorted(user.items(),key=lambda item: item[1], reverse=True ))
+
+    author = {}
+    i=0
+    for key, value in user.items():
+        if i <= 2:
+            author[key] = value
+            i = i+ 1
+            
+    return render(request, "home/about.html", {'author': author})
 
 def search(request):
     q = request.GET.get("q")
@@ -58,13 +75,13 @@ def handelLogin(request):
         password = request.POST.get("password")
         
         user = authenticate(username=username, password=password)
-        print(user)
+       
         if user is None:
             messages.error(request, "Incorrect username or password")
             return render(request, "home/login.html")
         
         login(request, user)
-        return redirect("/")
+        return redirect(f"/user/{user.username}")
            
     return render(request, "home/login.html")
 
@@ -126,3 +143,15 @@ def signup(request):
 def handelLogout(request):
     logout(request)
     return redirect("/")
+
+
+def profile(request, username):
+    user = User.objects.filter(username=username)
+    if len(user) == 0:
+        return render(request, 'error.html')
+    posts = Post.objects.filter(author=user[0]).order_by("-time_stamp")
+    params ={
+        "user": user[0],
+        "posts": posts    
+    }
+    return render(request, "home/profile.html", params)

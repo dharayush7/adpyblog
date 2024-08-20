@@ -7,7 +7,7 @@ setTimeout(() => {
 <div
       class="flex flex-col w-full justify-center items-center space-y-5 border rounded-md border-gray-400 p-4"
     >
-      <p class="text-xl">Log in to post a comment</p>
+      <p class="text-xl">Log in to reply a comment</p>
       <a
         href="/login"
         class="inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-600"

@@ -36,24 +36,31 @@
     <div class="flex mt-3">
       <div>
         <p class="text-sm font-medium text-gray-200">
-          By <span class="font-semibold">{{post.author}}</span>
+          By
+          <a href="/user/{{post.author.username}}">
+            <span class="font-semibold hover:underline"
+              >{{post.author.first_name}} {{post.author.last_name}}</span
+            >
+          </a>
         </p>
-        <p class="text-xs font-open-sans font-semibold text-gray-400">
+        <p class="text-xs font-semibold text-gray-400 font-open-sans">
           {{post.time_stamp}}
         </p>
       </div>
     </div>
   </div>
 </div>
-<div class="max-w-6xl mx-auto mt-12 text-lg leading-relaxed text-gray-700 px-0">
-  <p class="pb-6 text-lg text-justify">{{post.content}}</p>
+<div
+  class="max-w-6xl px-0 mx-auto mt-12 text-lg leading-relaxed text-gray-700 post-content"
+>
+  <p class="pb-6 text-lg text-justify">{{post.content|safe}}</p>
 </div>
 <!-- comment -->
 
 <section class="py-16 antialiased bg-white font-open-sans">
   <div class="max-w-4xl px-4 mx-auto">
     <div class="flex items-center justify-center mb-6">
-      <h2 class="font-semibold text-gray-900 text-3xl text-center">
+      <h2 class="text-3xl font-semibold text-center text-gray-900">
         Comment
         <span class="text-2xl font-semibold text-gray-600"
           >({{comments|length}})</span
@@ -86,7 +93,7 @@
     </form>
     {% else %}
     <div
-      class="flex flex-col w-full justify-center items-center space-y-5 border rounded-md border-gray-400 p-4"
+      class="flex flex-col items-center justify-center w-full p-4 space-y-5 border border-gray-400 rounded-md"
     >
       <p class="text-xl">Log in to post a comment</p>
       <a
@@ -102,11 +109,13 @@
     <article class="px-6 py-3 text-base bg-white rounded-lg">
       <footer class="flex items-center justify-between mb-2">
         <div class="flex items-center">
-          <p
-            class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900"
-          >
-            @{{comment.user.username}}
-          </p>
+          <a href="/user/{{comment.user.username}}">
+            <p
+              class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 hover:underline"
+            >
+              @{{comment.user.username}}
+            </p>
+          </a>
           <p class="text-sm text-gray-600">
             <time pubdate datetime="2022-02-08" title="February 8th, 2022"
               >{{comment.time_stamp|naturaltime}}</time
@@ -151,11 +160,13 @@
     <article class="p-6 mb-3 ml-12 text-base bg-white rounded-lg">
       <footer class="flex items-center justify-between mb-2">
         <div class="flex items-center">
-          <p
-            class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900"
-          >
-            {{rpl.user.username}}
-          </p>
+          <a href="/user/{{rpl.user.username}}">
+            <p
+              class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 hover:underline"
+            >
+              @{{rpl.user.username}}
+            </p>
+          </a>
           <p class="text-sm text-gray-600">
             <time pubdate datetime="2022-02-12" title="February 12th, 2022"
               >{{rpl.time_stamp|naturaltime}}</time
