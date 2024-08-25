@@ -1,7 +1,7 @@
 {
   "name": "theme",
   "version": "3.8.0",
-  "description": "",
+  "description": "Theme app for adpy blog",
   "scripts": {
     "start": "npm run dev",
     "build": "npm run build:clean && npm run build:tailwind",
@@ -11,7 +11,7 @@
     "tailwindcss": "node ./node_modules/tailwindcss/lib/cli.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ayush Dhar",
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
